@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+
+{% include 'navbar.html' %}
+
+{% endblock navbar %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Seriel number.</th>
+        <th class="table-primary" scope="col">First name</th>
+        <th class="table-primary" scope="col">Last name </th>
+        <th scope="col">Department </th>
+        <th class="table-secondary" scope="col">Salary</th>
+        <th scope="col">Bonus</th>
+        <th class="table-secondary" scope="col">Role</th>
+        <th scope="col">Phone</th>
+        <th class="table-secondary" scope="col">Hiring Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for emp in emps %}
+      <tr>
+        <th scope="row">{{ emp.id }}</th>
+        <td class="table-primary">{{ emp.first_name }}</td>
+        <td class="table-primary" >{{ emp.last_name }}</td>
+        <td>{{ emp.dept }}</td>
+        <td class="table-secondary" >{{ emp.salary }}</td>
+        <td>{{ emp.bonus }}</td>
+        <td class="table-secondary">{{ emp.role }}</td>
+        <td>{{ emp.phone }}</td>
+        <td class="table-secondary">{{ emp.hire_date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

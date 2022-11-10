@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block content %} {% include 'navbar.html' %}
+<hr />
+<div class="container-md mt-5">
+  <form>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label mt-3">Department</label>
+      <select class="form-select" aria-label="Default select example">
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Salary</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Only in Digits"/>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Bonus</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label mt-3">Role</label>
+      <select class="form-select" aria-label="Default select example">
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Phone</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+      <div id="emailHelp" class="form-text">We'll never share your phone with anyone else.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Hire Date</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+</div>
+{% endblock content %}
