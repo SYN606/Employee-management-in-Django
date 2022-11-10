@@ -20,19 +20,14 @@ def add(request):
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         dept = request.POST['dept']
+        role = request.POST['role']
+        
         salary = int(request.POST['salary'])
         bonus = int(request.POST['bonus'])
-        role = request.POST['role']
         phone = int(request.POST['phone'])
         
-        hire_date = 0
 
-        if hire_date == None:
-            hire_date = datetime.now()
-        else:
-            hire_date = int(request.POST['hire_date'])
-
-        new_emp = Employee(first_name = first_name, last_name = last_name, dept_id = dept, role_id = role, salary = salary, bonus = bonus, phone = phone, hire_date = hire_date)
+        new_emp = Employee(first_name = first_name, last_name = last_name, dept_id = dept, role_id = role, salary = salary, bonus = bonus, phone = phone, hire_date = datetime.now())
 
         new_emp.save()
 
