@@ -42,8 +42,17 @@ def add(request):
         return render(request, 'add.html', context)
 
 
+def remove(request, emp_id = 0):
+    if emp_id:
+        try:
+            emp_to_be_removed = Employee.objects.get(id=emp_id)
+            emp_to_be_removed.delete()
+            return HttpResponse("Employee Removed Successfully")
+        except:
+            return HttpResponse("Something Went Wrong...//")
+
+    return render(request, 'remove.html')
+
+
 def filter(request):
     return render(request, 'filter.html')
-
-def remove(request):
-    return render(request, 'remove.html')
