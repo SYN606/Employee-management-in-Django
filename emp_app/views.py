@@ -35,9 +35,11 @@ def add(request):
     else:
         dis_department = Department.objects.all()
         dis_role = Role.objects.all() # for displaying role and department in frontend site.
-
-    
-        return render(request, 'add.html')
+        context = {
+            'dis_dept' : dis_department,
+            'dis_role' : dis_role
+        }
+        return render(request, 'add.html', context)
 
 
 def filter(request):

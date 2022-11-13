@@ -22,7 +22,7 @@
         <label for="dept" class="form-label">Department</label>
         <input type="text" class="form-control" id="dept" name="dept" value="{{dept}}">
       </div>
-      
+
       <div class="col">
         <label for="role" class="form-label">Role</label>
         <input type="text" class="form-control" id="role" name="role" value="{{ role }}">
@@ -52,4 +52,61 @@
   </form>
 </div>
 </div>
+<hr>
 {% endblock content %}
+
+{% block desc %}
+<div class="row container-md mx-auto mt-5">
+  <p>Department ad Role details for adding new employees</p>
+  <div class="col">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sr. No.</th>
+          <th scope="col">Department</th>
+          <th scope="col">Location</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for dept in dis_dept %}
+
+        <tr>
+          <th scope="row">{{ dept.id }}</th>
+          <td class="text-bg-info p-3">{{ dept.name }}</td>
+          <td>{{ dept.location }}</td>
+        </tr>
+
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sr. No.</th>
+          <th scope="col">Role</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for role in dis_role %}
+
+        <tr>
+          <th scope="row">{{ role.id }}</th>
+          <td class="text-bg-info p-3">{{ role.name }}</td>
+        </tr>
+
+        {% endfor %}
+        
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+{% endblock desc %}
