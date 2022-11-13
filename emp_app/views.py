@@ -75,10 +75,10 @@ def filter(request):
             # emps = emps.filter(Q(first_name__icontains==name) | Q(last_name__icontains==name))
             pass
         if dept:
-            emps = emps.filter(dept__name=dept)
+            emps = emps.filter(dept__name__icontains=dept)
 
         if role:
-            emps = emps.filter(role__name=role)
+            emps = emps.filter(role__name__icontains=role)
 
         context = {"emps": emps}
 
