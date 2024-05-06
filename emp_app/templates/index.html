@@ -1,18 +1,15 @@
-{% extends "base.html" %} {% block title %}
-<title>Employee Management App</title>
-{% endblock title %}
+{% extends "base.html" %}
 
-{% block navbar %}
-
-{% include "navbar.html" %}
-
-{% endblock navbar %}
-
+{% block title %} {{title}} {% endblock title %}
 
 {% block content %}
 <hr>
-<h3>project desc</h3>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate cum natus officiis sunt fugit vero voluptatibus
-    vitae in nesciunt tempora provident enim facilis similique, velit at dignissimos pariatur quo dolorum?</p>
+<h3 class="mt-5">About this project</h3>
+<p> <strong>Employee Management App</strong> is a Django application designed to streamline employee management processes. With this
+    application, users can effortlessly add new employees to their database, facilitating seamless onboarding. Moreover,
+    it offers advanced filtering options based on employee names and departments, enabling quick access to relevant
+    information. The app also empowers administrators to efficiently remove employees from the database when necessary.
+    Built with Bootstrap for the frontend, it ensures a visually appealing and responsive user interface, enhancing user
+    experience across devices.</p>
 
 {% endblock content %}

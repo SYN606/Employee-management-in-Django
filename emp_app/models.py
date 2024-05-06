@@ -9,7 +9,6 @@ class Department(models.Model):
         return self.name
 
 
-
 class Employee(models.Model): 
 
     first_name = models.CharField(max_length = 100, null = False)

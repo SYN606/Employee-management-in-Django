@@ -1,16 +1,19 @@
 from datetime import datetime
-from django.shortcuts import HttpResponse, render, redirect
+from django.shortcuts import render, redirect
 from .models import Department, Employee
 from django.contrib import messages
+from django.db.models import Q
+
 
 def index(request):
-    return render(request, "index.html")
+    data = {"title": "Homepage"}
+    return render(request, "index.html", data)
 
 
 def view(request):
     emps = Employee.objects.all()
-    context = {"emps": emps}
-    return render(request, "view.html", context)
+    data = {"emps": emps, "title": "View all Employees"}
+    return render(request, "view.html", data)
 
 
 def add(request):
@@ -31,16 +34,15 @@ def add(request):
             phone=phone,
             hire_date=datetime.now(),
         )
-
         new_emp.save()
-
-        return redirect('view')
+        messages.success(request, "Employee Added Successfully")
+        return redirect("view")
     else:
         dis_department = (
             Department.objects.all()
         )  # for displaying department in frontend site.
-        context = {"dis_dept": dis_department}
-        return render(request, "add.html", context)
+        data = {"dis_dept": dis_department, 'title' : 'Add an Employee'}
+        return render(request, "add.html", data)
 
 
 def remove(request, emp_id=0):
@@ -48,32 +50,30 @@ def remove(request, emp_id=0):
         try:
             emp_to_be_removed = Employee.objects.get(id=emp_id)
             emp_to_be_removed.delete()
-            messages.success(request, 'Employee Removed Successfully')
-            return redirect('view')
-        except: 
+            messages.success(request, "Employee Removed Successfully")
+            return redirect("view")
+        except:
             messages.warning(request, "Something went wrong.")
-            return redirect('view')
+            return redirect("view")
 
 
 def filter(request):
     if request.method == "POST":
         name = request.POST["name"]
         dept = request.POST["dept"]
-        role = request.POST["role"]
         emps = Employee.objects.all()
 
         if name:
-            # emps = emps.filter(Q(first_name__icontains==name) | Q(last_name__icontains==name))
-            pass
+            emps = emps.filter(
+                Q(first_name__icontains=name) | Q(last_name__icontains=name)
+            )
         if dept:
             emps = emps.filter(dept__name__icontains=dept)
 
-        if role:
-            emps = emps.filter(role__name__icontains=role)
+        data = {"emps": emps, "title": "Filter employees"}
 
-        context = {"emps": emps}
-
-        return render(request, "view.html", context)
+        return render(request, "view.html", data)
 
     else:
-        return render(request, "filter.html")
+        data = {"title": "Filter employees"}
+        return render(request, "filter.html", data)
