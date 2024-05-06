@@ -1,44 +1,42 @@
+# Employee Management System in Django
 
-# Employee Management in Django
+## Description
+This is an Employee Management System developed using Django framework. This system is designed to streamline the process of managing employees in a company.
 
-This is a django project based on python's web frame work Django that contains basic CRUD funtionality with couple of additional things.
+## Features
+- **Employee Registration:** Register new employees with details like name, position, department, etc.
+- **Employee Management:** Update, delete, and view employee details.
+- **Search Functionality:** Search employees based on different criteria.
+- **Department Management:** Manage different departments in the company.
 
-This project contains a basic `sqlite3` database for storing data and for managing it.
-It is able to handle all the database opreations and quries, also we can create super user and we can see all the information from Django admin site.
+## Installation
 
-
-## Deployment
-
-For cloning this repository use :
-
-```bash
-  git clone git@github.com:SYN606/Employee-management-in-Django.git
+1. Clone the repository
 
 ```
-
-then change the directory and run the `requirements.txt` file :
-```bash
-    cd Employee-management-in-Django
-```
-Then
-```bash
-    pip install -r requirements.txt
+git clone https://github.com/SYN606/Employee-management-in-Django.git
 ```
 
-For running the server use :
+2. Change directory
 
-```bash
-    python manage.py runserver
+```
+cd Employee-management-in-Django
 ```
 
->>> Extra Quries :
+3. Install the requirements
 
-For migrating data base first time :
+```
+pip install -r requirements.txt
+```
 
-```bash
-    python manage.py makemigrations
+4. Run the server
+
 ```
-Then 
-```bash
-    python manage.py migrate
+python manage.py runserver
 ```
+
+## Usage
+Open your web browser and navigate to `http://127.0.0.1:8000/`.
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
