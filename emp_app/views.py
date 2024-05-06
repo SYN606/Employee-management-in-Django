@@ -1,10 +1,7 @@
 from datetime import datetime
-from django.shortcuts import HttpResponse, render
-from .models import Department, Employee, Role
-
-from django.db.models import Q
-
-
+from django.shortcuts import HttpResponse, render, redirect
+from .models import Department, Employee
+from django.contrib import messages
 
 def index(request):
     return render(request, "index.html")
@@ -21,8 +18,6 @@ def add(request):
         first_name = request.POST["first_name"]
         last_name = request.POST["last_name"]
         dept = request.POST["dept"]
-        role = request.POST["role"]
-
         salary = int(request.POST["salary"])
         bonus = int(request.POST["bonus"])
         phone = int(request.POST["phone"])
@@ -31,7 +26,6 @@ def add(request):
             first_name=first_name,
             last_name=last_name,
             dept_id=dept,
-            role_id=role,
             salary=salary,
             bonus=bonus,
             phone=phone,
@@ -40,13 +34,12 @@ def add(request):
 
         new_emp.save()
 
-        return HttpResponse("user created")
+        return redirect('view')
     else:
-        dis_department = Department.objects.all()
-        dis_role = (
-            Role.objects.all()
-        )  # for displaying role and department in frontend site.
-        context = {"dis_dept": dis_department, "dis_role": dis_role}
+        dis_department = (
+            Department.objects.all()
+        )  # for displaying department in frontend site.
+        context = {"dis_dept": dis_department}
         return render(request, "add.html", context)
 
 
@@ -55,17 +48,15 @@ def remove(request, emp_id=0):
         try:
             emp_to_be_removed = Employee.objects.get(id=emp_id)
             emp_to_be_removed.delete()
-            return HttpResponse("Employee Removed Successfully")
-        except:
-            return HttpResponse("Something Went Wrong...//")
-
-    return render(request, "remove.html")
+            messages.success(request, 'Employee Removed Successfully')
+            return redirect('view')
+        except: 
+            messages.warning(request, "Something went wrong.")
+            return redirect('view')
 
 
 def filter(request):
-
     if request.method == "POST":
-
         name = request.POST["name"]
         dept = request.POST["dept"]
         role = request.POST["role"]
