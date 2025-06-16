@@ -9,4 +9,4 @@ env = os.getenv("ENV", "development")
 if env == "production":
     from .production import *
 else:
-    from .production import *
+    from .development import *

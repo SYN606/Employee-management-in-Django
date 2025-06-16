@@ -178,4 +178,5 @@ pyrightconfig.json
 .vscode
 
 migrations
-db.*
+db.sqlite3
+media/

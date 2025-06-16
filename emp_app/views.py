@@ -21,11 +21,10 @@ def view(request):
 
 
 def add(request):
-    """Add a new employee via form POST"""
     departments = Department.objects.all()
 
     if request.method == "POST":
-        # Get and clean form data
+        # Extract form data
         first_name = request.POST.get("first_name", "").strip()
         last_name = request.POST.get("last_name", "").strip()
         email = request.POST.get("email", "").strip()
@@ -40,12 +39,15 @@ def add(request):
         profile_picture = request.FILES.get("profile_picture", None)
 
         # Validate required fields
-        if not first_name or not dept_id:
-            messages.error(request, "First Name and Department are required.")
+        if not first_name or not dept_id or not email or not job_title:
+            messages.error(request, "Required fields are missing.")
             return render(
-                request, "add.html", {
+                request,
+                "add.html",
+                {
                     "departments": departments,
                     "title": "Add an Employee",
+                    # Return input to user
                     "first_name": first_name,
                     "last_name": last_name,
                     "email": email,
@@ -60,14 +62,19 @@ def add(request):
                 })
 
         try:
-            # Convert numeric and date values
+            # Type conversions
             salary = int(salary)
             bonus = int(bonus)
             phone = int(phone)
             dob_date = datetime.strptime(dob,
                                          "%Y-%m-%d").date() if dob else None
 
-            # Create new employee
+            # Validate choices
+            gender = gender if gender in dict(Employee.GENDER_CHOICES) else 'M'
+            employment_type = employment_type if employment_type in dict(
+                Employee.EMPLOYMENT_TYPE) else 'FT'
+
+            # Create Employee
             Employee.objects.create(first_name=first_name,
                                     last_name=last_name,
                                     email=email,
@@ -79,7 +86,7 @@ def add(request):
                                     bonus=bonus,
                                     job_title=job_title,
                                     employment_type=employment_type,
-                                    hire_date=datetime.now().date(),
+                                    hire_date=datetime.today().date(),
                                     profile_picture=profile_picture)
 
             messages.success(request, "Employee added successfully.")
@@ -104,11 +111,10 @@ def add(request):
                     "employment_type": employment_type,
                 })
 
-    else:
-        return render(request, "add.html", {
-            "departments": departments,
-            "title": "Add an Employee"
-        })
+    return render(request, "add.html", {
+        "departments": departments,
+        "title": "Add an Employee"
+    })
 
 
 def remove(request, emp_id=0):

@@ -27,11 +27,9 @@ ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS if host.strip()]
 #     }
 # }
 
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+
 # Static files directory for production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Optional: Security settings for production
-# SECURE_HSTS_SECONDS = 31536000
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
+
