@@ -1,15 +1,85 @@
 {% extends "base.html" %}
 
-{% block title %} {{title}} {% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 {% block content %}
-<hr>
-<h3 class="mt-5">About this project</h3>
-<p> <strong>Employee Management App</strong> is a Django application designed to streamline employee management processes. With this
-    application, users can effortlessly add new employees to their database, facilitating seamless onboarding. Moreover,
-    it offers advanced filtering options based on employee names and departments, enabling quick access to relevant
-    information. The app also empowers administrators to efficiently remove employees from the database when necessary.
-    Built with Bootstrap for the frontend, it ensures a visually appealing and responsive user interface, enhancing user
-    experience across devices.</p>
+<div class="px-6 py-8 max-w-5xl mx-auto text-gray-300">
+    <hr class="border-gray-700 mb-6" />
 
+    <!-- Hero Section -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-white mb-4">Welcome to the Employee Management App</h1>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+            Effortlessly manage employee data with a modern, responsive, and secure web-based solution.
+        </p>
+    </div>
+
+    <!-- About Project -->
+    <div>
+        <h3 class="text-3xl font-bold text-white mb-4">📘 About this Project</h3>
+        <p class="text-gray-300 leading-relaxed">
+            <strong class="text-white">Employee Management App</strong> is a full-featured Django web application
+            designed to simplify and automate common employee operations. Whether you’re a small business or a growing
+            company, this tool helps HR teams streamline data handling.
+        </p>
+    </div>
+
+    <!-- Features -->
+    <div class="mt-10">
+        <h4 class="text-2xl font-semibold text-white mb-4">🌟 Key Features</h4>
+        <ul class="list-disc list-inside space-y-2">
+            <li><strong class="text-white">Add Employees:</strong> Quickly register new employees with essential data
+                fields.</li>
+            <li><strong class="text-white">View All:</strong> Access a searchable, filterable employee directory with
+                department tags.</li>
+            <li><strong class="text-white">Smart Filter:</strong> Instantly find employees by department or partial name
+                match.</li>
+            <li><strong class="text-white">Delete Records:</strong> Remove employees securely and efficiently.</li>
+            <li><strong class="text-white">Modern UI:</strong> Fully responsive and optimized for mobile, tablet, and
+                desktop screens.</li>
+        </ul>
+    </div>
+
+    <!-- Technologies -->
+    <div class="mt-10">
+        <h4 class="text-2xl font-semibold text-white mb-4">🛠 Technologies Used</h4>
+        <ul class="list-disc list-inside space-y-2">
+            <li><strong class="text-white">Django:</strong> High-level Python framework for rapid backend development.
+            </li>
+            <li><strong class="text-white">SQLite:</strong> Simple and efficient database for development/testing.</li>
+            <li><strong class="text-white">Tailwind CSS:</strong> Utility-first CSS for fast, elegant UI styling.</li>
+            <li><strong class="text-white">Alpine.js:</strong> Lightweight JavaScript for interactive UI without heavy
+                JS frameworks.</li>
+        </ul>
+    </div>
+
+    <!-- Screenshots / UI Hints -->
+    <div class="mt-10">
+        <h4 class="text-2xl font-semibold text-white mb-4">🖼 Interface Preview</h4>
+        <div class="rounded-lg border border-gray-700 p-4 bg-gray-800 text-center text-gray-400 italic">
+            (Screenshots of dashboard, employee list, and forms could be inserted here)
+        </div>
+    </div>
+
+    <!-- Future Enhancements -->
+    <div class="mt-10">
+        <h4 class="text-2xl font-semibold text-white mb-4">🚀 Planned Enhancements</h4>
+        <ul class="list-disc list-inside space-y-2">
+            <li>Live search with autocomplete</li>
+            <li>Role-based access control (Admin, HR, Manager)</li>
+            <li>CSV/PDF export of filtered data</li>
+            <li>API endpoints for integration with external systems</li>
+            <li>Email notifications for onboarding/offboarding</li>
+        </ul>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="mt-12 text-center">
+        <h4 class="text-xl font-semibold text-white mb-2">👩‍💼 Ready to manage your team?</h4>
+        <a href="/add"
+            class="inline-block mt-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md shadow-lg transition">
+            Add Your First Employee
+        </a>
+    </div>
+</div>
 {% endblock content %}

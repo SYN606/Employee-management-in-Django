@@ -1,78 +1,161 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
-{% block title %} {{title}} {% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
-{% block content %} 
-<hr />
-<div class="container-md mt-5">
-  <form action="/add" method="post">
+{% block content %}
+<hr class="border-gray-700" />
 
+<div class="max-w-5xl mx-auto px-4 py-6 text-gray-200">
+  <h2 class="text-3xl font-bold mb-6 text-white">Add New Employee</h2>
+
+  <form action="/add" method="post" enctype="multipart/form-data"
+    class="bg-gray-800 p-6 rounded-xl shadow-md space-y-6">
     {% csrf_token %}
 
-    <div class="row">
-      <div class="col">
-        <label for="first_name" class="form-label">First Name</label>
-        <input type="text" class="form-control" id="first_name" name="first_name" value=" {{ first_name }}">
-      </div>
-      <div class="col">
-        <label for="last_name" class="form-label">Last Name</label>
-        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ last_name }}">
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="mb-2 col">
-        <label for="dept" class="form-label">Department</label>
-        <input type="number" class="form-control" id="dept" name="dept" value="{{dept}}">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="first_name" class="block mb-1 font-medium text-gray-300">First Name</label>
+        <input type="text" id="first_name" name="first_name" value="{{ first_name }}"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="John" />
       </div>
 
-      <div class="mb-2 col">
-        <label for="salary" class="form-label">Salary</label>
-        <input type="number" class="form-control" id="salary" name="salary" value=" {{ salary }} ">
-      </div>
-
-      <div class="mb-2 col">
-        <label for="bonus" class="form-label">Bonus</label>
-        <input type="number" class="form-control" id="bonus" name="bonus" value=" {{ bonus }} ">
+      <div>
+        <label for="last_name" class="block mb-1 font-medium text-gray-300">Last Name</label>
+        <input type="text" id="last_name" name="last_name" value="{{ last_name }}"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="Doe" />
       </div>
     </div>
 
-    <div class="mb-3 col">
-      <label for="phone" class="form-label">Phone</label>
-      <input type="tel" class="form-control" id="number" name="phone" value="{{ phone }}">
-      <div id="emailHelp" class="form-text">We'll never share your Phone with anyone else.</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="email" class="block mb-1 font-medium text-gray-300">Email</label>
+        <input type="email" id="email" name="email" value="{{ email }}"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="john@example.com" />
+      </div>
+
+      <div>
+        <label for="dob" class="block mb-1 font-medium text-gray-300">Date of Birth</label>
+        <input type="date" id="dob" name="dob" value="{{ dob }}"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 outline-none" />
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <label for="gender" class="block mb-1 font-medium text-gray-300">Gender</label>
+        <select id="gender" name="gender"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 outline-none">
+          <option value="">-- Select Gender --</option>
+          <option value="Male" {% if gender=="Male" %}selected{% endif %}>Male</option>
+          <option value="Female" {% if gender=="Female" %}selected{% endif %}>Female</option>
+          <option value="Other" {% if gender=="Other" %}selected{% endif %}>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="job_title" class="block mb-1 font-medium text-gray-300">Job Title</label>
+        <input type="text" id="job_title" name="job_title" value="{{ job_title }}"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="Software Engineer" />
+      </div>
+
+      <div>
+        <label for="employment_type" class="block mb-1 font-medium text-gray-300">Employment Type</label>
+        <select id="employment_type" name="employment_type"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 outline-none">
+          <option value="">-- Select Type --</option>
+          <option value="Full-Time" {% if employment_type=="Full-Time" %}selected{% endif %}>Full-Time</option>
+          <option value="Part-Time" {% if employment_type=="Part-Time" %}selected{% endif %}>Part-Time</option>
+          <option value="Contract" {% if employment_type=="Contract" %}selected{% endif %}>Contract</option>
+          <option value="Intern" {% if employment_type=="Intern" %}selected{% endif %}>Intern</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <label for="dept" class="block mb-1 font-medium text-gray-300">Department</label>
+        <select id="dept" name="dept"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 outline-none">
+          <option value="">-- Select Department --</option>
+          {% for d in departments %}
+          <option value="{{ d.id }}" {% if dept==d.id|stringformat:"s" %}selected{% endif %}>
+            {{ d.name }} ({{ d.location }})
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label for="salary" class="block mb-1 font-medium text-gray-300">Salary</label>
+        <input type="text" id="salary" name="salary" value="{{ salary }}"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="e.g. 50000" inputmode="numeric" pattern="[0-9]*" />
+      </div>
+
+      <div>
+        <label for="bonus" class="block mb-1 font-medium text-gray-300">Bonus</label>
+        <input type="text" id="bonus" name="bonus" value="{{ bonus }}"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="e.g. 5000" inputmode="numeric" pattern="[0-9]*" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="phone" class="block mb-1 font-medium text-gray-300">Phone Number</label>
+        <input type="tel" id="phone" name="phone" value="{{ phone }}"
+          class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="9876543210" inputmode="tel" pattern="[0-9]{10}" />
+        <p class="text-sm text-gray-500 mt-1">We'll never share your phone with anyone else.</p>
+      </div>
+
+      <div>
+        <label for="profile_picture" class="block mb-1 font-medium text-gray-300">Profile Picture</label>
+        <input type="file" id="profile_picture" name="profile_picture" class="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4
+                 file:rounded-md file:border-0 file:text-sm file:font-semibold
+                 file:bg-blue-600 file:text-white hover:file:bg-blue-700" />
+      </div>
+    </div>
+
+    <div class="flex justify-end">
+      <button type="submit"
+        class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md font-semibold text-white transition shadow">
+        Submit
+      </button>
+    </div>
   </form>
 </div>
-</div>
-<hr>
 {% endblock content %}
 
 {% block desc %}
-<div class="container-md mx-auto mt-5">
-  <p>Department details for adding new employees</p>
-    <table class="table">
-      <thead>
+<div class="max-w-5xl mx-auto px-4 py-6 mt-8">
+  <h3 class="text-2xl font-bold text-white mb-4">📋 Department Details</h3>
+  <p class="text-gray-400 mb-4">Use the below department list to assign the correct department while adding an employee.
+  </p>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-gray-800 text-white text-left text-sm rounded-xl shadow-md">
+      <thead class="bg-gray-700 text-gray-300">
         <tr>
-          <th scope="col">Sr. No.</th>
-          <th scope="col">Department</th>
-          <th scope="col">Location</th>
+          <th class="px-6 py-3 font-medium">Sr. No.</th>
+          <th class="px-6 py-3 font-medium">Department</th>
+          <th class="px-6 py-3 font-medium">Location</th>
         </tr>
       </thead>
       <tbody>
-
-        {% for dept in dis_dept %}
-
-        <tr>
-          <th scope="row">{{ dept.id }}</th>
-          <td class="text-bg-info p-3">{{ dept.name }}</td>
-          <td>{{ dept.location }}</td>
+        {% for dept in departments %}
+        <tr class="border-b border-gray-700 hover:bg-gray-700 transition">
+          <td class="px-6 py-3">{{ dept.id }}</td>
+          <td class="px-6 py-3 font-semibold text-blue-400">{{ dept.name }}</td>
+          <td class="px-6 py-3">{{ dept.location }}</td>
         </tr>
-
         {% endfor %}
-
       </tbody>
     </table>
+  </div>
 </div>
 {% endblock desc %}

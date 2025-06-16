@@ -1,30 +1,43 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ title }} {% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 {% block content %}
-<h2>
-    Filtering Employees
-</h2>
-<div class="container-md mt-5">
-    <form action="/filter" method="post">
+<div class="max-w-4xl mx-auto mt-10 px-6 text-gray-200" x-data="{ showForm: true }">
 
-        {% csrf_token %}
+    <h2 class="text-3xl font-bold text-white mb-6">🔍 Filter Employees</h2>
 
-        <div class="row">
-            <div class="col">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value=" {{ name }}">
+    <div class="bg-gray-800 shadow-lg rounded-lg p-6 transition duration-300" x-show="showForm" x-transition>
+        <form action="/filter" method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Employee Name</label>
+                    <input type="text" name="name" id="name" placeholder="e.g. John" value="{{ name }}"
+                        class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+
+                <div>
+                    <label for="dept" class="block text-sm font-medium text-gray-300 mb-1">Department</label>
+                    <input type="text" name="dept" id="dept" placeholder="e.g. HR" value="{{ dept }}"
+                        class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
             </div>
-            <div class="col">
-                <label for="dept" class="form-label">Department</label>
-                <input type="text" class="form-control" id="dept" name="dept" value="{{ dept }}">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary mt-3">Submit</button>
-    </form>
-</div>
-</div>
-<hr>
 
+            <div class="flex items-center justify-between">
+                <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 transition px-6 py-2 rounded-md text-white font-semibold shadow">
+                    Apply Filters
+                </button>
+
+                <button type="button" @click="showForm = false" class="text-sm text-red-400 hover:text-red-300">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <hr class="mt-12 border-gray-700" />
+</div>
 {% endblock content %}

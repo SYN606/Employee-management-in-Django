@@ -1,53 +1,81 @@
 {% extends 'base.html' %}
 
-{% block title %} {{title}} {% endblock title %}
+{% block title %} {{ title }} {% endblock title %}
 
 {% block content %}
 
-  {% if messages %}
-    {% for m in messages %}
-          <div class="alert alert-dismissible fade show border border-{{m.tags}}-subtle bg-{{m.tags}}-subtle" role="alert">
-            <p class="m-0">{{ m }} </p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-    {% endfor %}
-  {% endif %}
+{% if messages %}
+<div class="space-y-4 mb-6">
+  {% for m in messages %}
+  <div x-data="{ show: true }" x-show="show" x-transition class="flex items-center justify-between border-l-4 p-4 rounded shadow
+          {% if m.tags == 'success' %} border-green-500 bg-green-100 text-green-800
+          {% elif m.tags == 'error' %} border-red-500 bg-red-100 text-red-800
+          {% elif m.tags == 'warning' %} border-yellow-500 bg-yellow-100 text-yellow-800
+          {% else %} border-blue-500 bg-blue-100 text-blue-800
+          {% endif %}">
+    <p class="flex-1">{{ m }}</p>
+    <button @click="show = false" class="text-xl font-bold px-2">&times;</button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Sr. No.</th>
-      <th class="table-primary" scope="col">First name</th>
-      <th class="table-primary" scope="col">Last name </th>
-      <th scope="col">Department </th>
-      <th class="table-secondary" scope="col">Salary</th>
-      <th scope="col">Bonus</th>
-      <th scope="col">Phone</th>
-      <th class="table-secondary" scope="col">Hiring Date</th>
-      <th class="table-danger" scope="col">Remove Employee</th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    {% for emp in emps %}
-    <tr>
-      <th scope="row">{{ emp.id }}</th>
-      <td class="table-primary">{{ emp.first_name }}</td>
-      <td class="table-primary">{{ emp.last_name }}</td>
-      <td>{{ emp.dept }}</td>
-      <td class="table-secondary">{{ emp.salary }}</td>
-      <td>{{ emp.bonus }}</td>
-      <td>{{ emp.phone }}</td>
-      <td class="table-secondary">{{ emp.hire_date }}</td>
+<div class="max-w-7xl mx-auto px-4 py-6">
+  <h2 class="text-3xl font-semibold text-white mb-6">Employee Directory</h2>
 
-      <td class="table-danger">
-        <button type="button" class="btn btn-dark"><a
-            class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-            href="/remove/{{emp.id}}">Remove</a>
-        </button>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <div class="overflow-x-auto rounded-lg shadow">
+    <table class="min-w-full divide-y divide-gray-700 bg-gray-800 text-white text-sm">
+      <thead class="bg-gray-700 text-gray-300 uppercase text-xs">
+        <tr>
+          <th class="px-4 py-3 text-left">ID</th>
+          <th class="px-4 py-3 text-left">Photo</th>
+          <th class="px-4 py-3 text-left">Name</th>
+          <th class="px-4 py-3 text-left">Email</th>
+          <th class="px-4 py-3 text-left">DOB</th>
+          <th class="px-4 py-3 text-left">Gender</th>
+          <th class="px-4 py-3 text-left">Department</th>
+          <th class="px-4 py-3 text-left">Job Title</th>
+          <th class="px-4 py-3 text-left">Employment Type</th>
+          <th class="px-4 py-3 text-left">Salary</th>
+          <th class="px-4 py-3 text-left">Bonus</th>
+          <th class="px-4 py-3 text-left">Phone</th>
+          <th class="px-4 py-3 text-left">Hire Date</th>
+          <th class="px-4 py-3 text-left">Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-700">
+        {% for emp in emps %}
+        <tr class="hover:bg-gray-700 transition">
+          <td class="px-4 py-3">{{ emp.id }}</td>
+          <td class="px-4 py-3">
+            {% if emp.profile_picture %}
+            <img src="{{ emp.profile_picture.url }}" alt="Photo" class="w-10 h-10 rounded-full object-cover">
+            {% else %}
+            <span class="text-gray-400 italic">No Photo</span>
+            {% endif %}
+          </td>
+          <td class="px-4 py-3 font-medium">{{ emp.first_name }} {{ emp.last_name }}</td>
+          <td class="px-4 py-3">{{ emp.email }}</td>
+          <td class="px-4 py-3">{{ emp.dob|date:"Y-m-d" }}</td>
+          <td class="px-4 py-3 capitalize">{{ emp.gender }}</td>
+          <td class="px-4 py-3">{{ emp.dept.name }}</td>
+          <td class="px-4 py-3">{{ emp.job_title }}</td>
+          <td class="px-4 py-3">{{ emp.employment_type }}</td>
+          <td class="px-4 py-3">₹{{ emp.salary }}</td>
+          <td class="px-4 py-3">₹{{ emp.bonus }}</td>
+          <td class="px-4 py-3">{{ emp.phone }}</td>
+          <td class="px-4 py-3">{{ emp.hire_date|date:"Y-m-d" }}</td>
+          <td class="px-4 py-3">
+            <a href="/remove/{{ emp.id }}"
+              class="inline-block px-3 py-1 text-sm font-semibold text-red-500 border border-red-500 rounded hover:bg-red-500 hover:text-white transition">
+              Remove
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 {% endblock content %}
