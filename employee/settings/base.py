@@ -12,8 +12,6 @@ INSTALLED_APPS = [
     'emp_app',
 ]
 
-DEBUG = True
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
