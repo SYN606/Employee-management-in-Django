@@ -16,10 +16,11 @@ RUN apt-get update && \
 
 # Install Python dependencies
 COPY requirements.txt /code/
+
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copy project files
 COPY . /code/
 
 # Run the server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["bash", "-c", "python manage.py makemigrations emp_app && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
